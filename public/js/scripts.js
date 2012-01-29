@@ -14,7 +14,7 @@ $(function() {
             transparent: null,
             filled: null
         },
-        opacity = 1,
+        opacity = 0.1,
 		inverter = false;
         
     var init = {
@@ -39,10 +39,16 @@ $(function() {
             ctx.inverter = canvas.inverter.getContext('2d');
         },
         callbacks: function() {
-            $('#color-picker').change(function(){
-                currentColor = '#'+$(this).val()
-                draw.all();
-            });
+			$("#colorpicker").CanvasColorPicker({
+				flat:true,
+				showButtons: false,
+				showPreview: false,
+				showColor: false,
+				onColorChange:function(rgb,hsv){
+					currentColor = rgb;
+					draw.all();		
+				}
+			});
 			$('#invert').click(invert.start);
         },
         textures: function() {
@@ -72,9 +78,6 @@ $(function() {
                 img = $currentTexture.get(0);
 
 			this.transparent(img, tWidth, tHeight);
-			
-			//imageData = ctx.transparent.getImageData(0, 0, canvas.transparent.width, canvas.transparent.height),
-			
 	        this.filled(img, tWidth, tHeight);   
             this.preview(img, tWidth, tHeight);
             
@@ -82,7 +85,7 @@ $(function() {
         },
         preview: function(img, tWidth, tHeight) {
             ctx.preview.clearRect(0, 0, canvas.preview.width, canvas.preview.height);
-            canvas.preview.style.backgroundColor = currentColor;
+            canvas.preview.style.backgroundColor = helpers.getCurrentColor();
             this.pattern(img, ctx.preview, canvas.preview);
         },
         transparent: function(img, tWidth, tHeight) {
@@ -92,7 +95,7 @@ $(function() {
         filled: function(img, tWidth, tHeight) {
 			helpers.adjustCanvasSize(canvas.filled, tWidth, tHeight);
 			
-            ctx.filled.fillStyle = currentColor; 
+            ctx.filled.fillStyle = helpers.getCurrentColor(); 
             ctx.filled.fillRect(0,0,canvas.filled.width,canvas.filled.height);
             
             this.pattern(img, ctx.filled, canvas.filled);
@@ -132,7 +135,7 @@ $(function() {
 		        data[i] = 255 - data[i]; // red
 		        data[i + 1] = 255 - data[i + 1]; // green
 		        data[i + 2] = 255 - data[i + 2]; // blue
-		        // i+3 is alpha (the fourth element)
+				data[i + 3] = 255 - data[i + 3]; // alpha
 		    }
 			imageData.data = data;
 			ctx.inverter.putImageData(imageData, 0, 0);				
@@ -156,6 +159,9 @@ $(function() {
                    'background-image': 'url('+img.attr('src')+')'
                 });
             });
+		},
+		getCurrentColor: function() {
+			return "rgb("+currentColor.r+", "+currentColor.g+", "+currentColor.g+")";
 		}
 	};
     

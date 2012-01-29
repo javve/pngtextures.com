@@ -13,6 +13,7 @@
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
+
 	<link rel="stylesheet" href="css/boilerplate.css">
 	<link rel="stylesheet" href="css/style.css">
 
@@ -35,12 +36,14 @@
 
 <div id="container">
 	<div id="main">
-	    <h1>PNGTextures</h1>
-        <input type="text" id="color-picker" class="color">
-        <ul id="textures">
-            <li><img src="images/textures/1.png" /></li>
-            <li><img src="images/textures/2.png" /></li>
-        </ul>
+		<div class="header">
+			<h1>PNGTextures</h1>
+		</div>
+		
+		
+
+        <div id="colorpicker"></div>
+		
 		<button id="invert">Invert</button>
 		
         <a href="#" id="save-canvas-transparent" class="save">Save texture excluding color</a>
@@ -51,13 +54,21 @@
 		<canvas id="image-inverter" style="border:solid 1px #000;"></canvas>
 		
 	</div>
-</div> <!--! end of #container -->
+</div>
+		
+<ul id="textures">
+	<li><div class="texture"><img src="images/textures/1.png" /></div></li>
+	<li><div class="texture"><img src="images/textures/2.png" /></div></li>
+</ul>
+
 
 <canvas id="canvas-preview"></div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-<script type="text/javascript" src="js/libs/jscolor/jscolor.js"></script>
+
+	<script type="text/javascript" src="js/libs/jquery.ps-color-picker.min.js"></script>
+
 <script type="text/javascript" src="js/scripts.js"></script>
 <script>
 	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID

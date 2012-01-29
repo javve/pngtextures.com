@@ -5,32 +5,66 @@ body {
 
 #container {
 	position:absolute;
-	top: 20%;
+	top: 10%;
 	left:50%;
 	width:500px;
 	margin-left:-250px;
-	padding:30px;
-	background-color:#ccc;
+	padding:40px;
+	background:url(/images/site/content.png) repeat;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	border-top:1px solid #eee;
+	-moz-box-shadow: 3px 10px 5px #888;
+	-webkit-box-shadow: 10px 10px 5px #888;
+	box-shadow: 0 0 3px rgba(0,0,0,0.19), inset 0 0 100px rgba(0,0,0,0.12);
 }
 
-#textures {
-	width:550px;
-	margin:0;
+.header {
+	text-align:center;
+}
+h1 {
+	background:url(/images/site/logo.png) repeat;
+	width:276px;
+	height:34px;
+	overflow:hidden;
+	text-indent:500px;
+	margin:0 0 30px;
 	padding:0;
-}
-#textures li {
 	display:inline-block;
-	background-color:transparent;
-	background-repeat:repeat;
-	height:100px;
-	width:100px;
-	margin:5px;
-	list-style-type:none;
 }
+#colorpicker-container {
+	background-color:rgba(255,255,255,0.2);
+	padding:20px;
+	border:solid 1px #aaa;
+	width:300px;
+}
+#colorpicker {
+	position:relative;
+	height:150px;
+	width:200px;
+}
+
 
 #image-container {
 	height:100px;
 	width:100px;
 	background-color:#fff;
 	display:block;
+}
+
+#canvas-preview {
+	background-color:#fff;
+}
+
+#textures {
+	width:100px;
+	padding:0;
+}
+#textures li {
+	display:block;
+	height:100px;
+	width:100px;
+	margin:0;
+	list-style-type:none;
 }
