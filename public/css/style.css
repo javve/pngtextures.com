@@ -1,0 +1,36 @@
+body {
+	margin:0;
+	padding:0;
+}
+
+#container {
+	position:absolute;
+	top: 20%;
+	left:50%;
+	width:500px;
+	margin-left:-250px;
+	padding:30px;
+	background-color:#fff;
+}
+
+#textures {
+	width:550px;
+	margin:0;
+	padding:0;
+}
+#textures li {
+	display:inline-block;
+	background-color:transparent;
+	background-repeat:repeat;
+	height:100px;
+	width:100px;
+	margin:5px;
+	list-style-type:none;
+}
+
+#image-container {
+	height:100px;
+	width:100px;
+	background-color:#fff;
+	display:block;
+}
