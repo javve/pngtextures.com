@@ -1,7 +1,7 @@
 body {
 	margin:0;
 	padding:0;
-	background:url(/images/site/aside.png) repeat-y;
+	background:url(/images/aside.png) repeat-y;
 	color:#eee;
 	font-family: "helvetica neue", helvetica, arial;
 }
@@ -12,7 +12,12 @@ body {
 
 
 h1 {
-	font-size:17px;
+	background:url(/images/logo.png) no-repeat;
+	width:157px;
+	height:23px;
+	text-indent:158px;
+	overflow:hidden;
+	margin:0 0 20px;
 }
 h3 {
 	font-size:14px;
@@ -54,7 +59,7 @@ h3 {
 	border:solid 1px rgba(0,0,0,.3);
 }
 .canvas-transparent-container {
-	background:url(/images/site/transparent.gif) repeat;
+	background:url(/images/transparent.gif) repeat;
 	margin-right:20px;
 }
 .canvas-filled-container {}

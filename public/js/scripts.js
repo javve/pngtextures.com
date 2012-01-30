@@ -141,6 +141,7 @@ $(window).load(function() {
 				ctx.inverter.rect(0,0,canvas.inverter.width,canvas.inverter.height);
 			});
             helpers.updateTextures();
+			draw.all();
 		},
 		canvas: function($that) {
             var tWidth = $that.width(),
@@ -222,16 +223,16 @@ $(window).load(function() {
 		},
 		get: {
 			opacity: function() {
-				opacity = (localStorage) ? localStorage.getItem(prefix+'opacity') : 0.5;
+				opacity = (localStorage) ? localStorage.getItem(prefix+'opacity') || 0.5 : 0.5;
 			},
 			inverted: function() {
-				inverted = (localStorage) ? localStorage.getItem(prefix+'inverted') : false;	
+				inverted = (localStorage) ? localStorage.getItem(prefix+'inverted') || false : false;	
 			},
 			color: function() {
-				currentColor = (localStorage) ? localStorage.getItem(prefix+'color') : "#fff";
+				currentColor = (localStorage) ? localStorage.getItem(prefix+'color') || "#ffffff" : "#ffffff";
 			},
 			texture: function() {
-				var src = localStorage ? localStorage.getItem(prefix+'texture') : null;
+				var src = localStorage ? localStorage.getItem(prefix+'texture') || null : null;
 				$currentTexture = $('#textures img').first();
 				$('#textures img').each(function() {
 					if (this.src.indexOf(src) != -1) {
