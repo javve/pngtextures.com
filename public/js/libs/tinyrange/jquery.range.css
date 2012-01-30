@@ -1,0 +1,27 @@
+.range-input {
+  position: relative;
+  height: 25px;
+}
+
+.range-rail {
+  background: url('images/rail-x.png') repeat-x 0 -2px;
+  height: 10px;
+}
+
+.range-selection {
+  position: absolute;
+  background: #aaa;
+  height: 3px;
+  top: 5px;
+  border-top: 1px solid #999;
+}
+
+.range-handle {
+  display: block;
+  position: absolute;
+  top: 0px;
+  background: url('images/thumb.png') no-repeat 0 -12px;
+  width:14px;
+  height: 26px;
+  border-radius: 10px;
+}
