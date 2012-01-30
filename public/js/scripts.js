@@ -48,6 +48,7 @@ $(window).load(function() {
             ctx.inverter = canvas.inverter.getContext('2d');
         },
         callbacks: function() {
+			console.log(currentColor, opacity, $currentTexture);
 			$("#colorpicker").CanvasColorPicker({
 				flat:true,
 				showButtons: false,
