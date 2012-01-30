@@ -1,8 +1,8 @@
-$(function() {
+$(window).load(function() {
     var $container = $('body'),
         $textures = [],
         $currentTexture = null,
-        currentColor = "#fff",
+        currentColor = undefined,
         canvas = {
             preview: null,
             transparent: null,
@@ -12,19 +12,28 @@ $(function() {
         ctx = {
             preview: null,
             transparent: null,
-            filled: null
+            filled: null,
+			inverter: null
         },
-        opacity = 0.1,
-		inverter = false;
+        opacity = undefined,
+		inverted = undefined,
+		prefix = "pngtextures";
         
     var init = {
         start: function() {
+			this.loadSaved();
             this.canvas();
             this.textures();
 			this.callbacks();
             resize();
             draw.all();
         },
+		loadSaved: function() {
+			storage.get.opacity(),
+			storage.get.inverted();
+			storage.get.color();
+			storage.get.texture();
+		},
         canvas: function() {
             canvas.preview = document.getElementById('canvas-preview');
             ctx.preview = canvas.preview.getContext('2d');
@@ -44,20 +53,27 @@ $(function() {
 				showButtons: false,
 				showPreview: false,
 				showColor: false,
+				color: helpers.hexToRgb(currentColor),
 				onColorChange:function(rgb,hsv){
-					currentColor = rgb;
-					draw.all();		
+					currentColor = helpers.rgbToHex(rgb.r, rgb.g, rgb.b);
+					storage.save.color();
+					draw.all();
 				}
 			});
 			$('#invert').click(invert.start);
+			$('#opacity').change(function() {
+				opacity = $(this).val() / 100;
+				storage.save.opacity();
+				draw.all();
+			});
+			$('#opacity').val(storage.get.opacity()*100);
         },
         textures: function() {
             $textures = $('#textures img');
-            $textures.hide();
             helpers.updateTextures();
-            $currentTexture = $textures.first();
             $('#textures li').click(function() {
                 $currentTexture = $(this).find('img');
+				storage.save.texture();
                 draw.all();
             });
         }
@@ -76,7 +92,11 @@ $(function() {
             var tWidth = $currentTexture.width(),
                 tHeight =  $currentTexture.height(),
                 img = $currentTexture.get(0);
-
+			
+			$(document.body).css({
+				'background-color': currentColor
+			});
+			
 			this.transparent(img, tWidth, tHeight);
 	        this.filled(img, tWidth, tHeight);   
             this.preview(img, tWidth, tHeight);
@@ -85,7 +105,7 @@ $(function() {
         },
         preview: function(img, tWidth, tHeight) {
             ctx.preview.clearRect(0, 0, canvas.preview.width, canvas.preview.height);
-            canvas.preview.style.backgroundColor = helpers.getCurrentColor();
+            canvas.preview.style.backgroundColor = currentColor;
             this.pattern(img, ctx.preview, canvas.preview);
         },
         transparent: function(img, tWidth, tHeight) {
@@ -95,7 +115,7 @@ $(function() {
         filled: function(img, tWidth, tHeight) {
 			helpers.adjustCanvasSize(canvas.filled, tWidth, tHeight);
 			
-            ctx.filled.fillStyle = helpers.getCurrentColor(); 
+            ctx.filled.fillStyle = currentColor; 
             ctx.filled.fillRect(0,0,canvas.filled.width,canvas.filled.height);
             
             this.pattern(img, ctx.filled, canvas.filled);
@@ -160,8 +180,20 @@ $(function() {
                 });
             });
 		},
-		getCurrentColor: function() {
-			return "rgb("+currentColor.r+", "+currentColor.g+", "+currentColor.g+")";
+		rgbToHex: function(r, g, b) {
+			function componentToHex(c) {
+				var hex = c.toString(16);
+				return hex.length == 1 ? "0" + hex : hex;
+			}
+		    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+		},
+		hexToRgb: function(hex) {
+		    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		    return result ? {
+		        r: parseInt(result[1], 16),
+		        g: parseInt(result[2], 16),
+		        b: parseInt(result[3], 16)
+		    } : null;
 		}
 	};
     
@@ -169,6 +201,44 @@ $(function() {
         $('#save-canvas-transparent').attr('href', canvas.transparent.toDataURL());
         $('#save-canvas-filled').attr('href', canvas.filled.toDataURL());
     };
+	
+	var storage = {
+		save: {
+			opacity: function() {
+				return (localStorage) ? localStorage.setItem(prefix+'opacity', opacity) : null;
+			},
+			inverted: function() {
+				return (localStorage) ? localStorage.setItem(prefix+'inverted', inverted) : null;
+			},
+			color: function() {
+				return (localStorage) ? localStorage.setItem(prefix+'color', currentColor) : null;
+			},
+			texture: function() {
+				return (localStorage) ? localStorage.setItem(prefix+'texture', $currentTexture.attr('src')) : null;
+			}
+		},
+		get: {
+			opacity: function() {
+				opacity = (localStorage) ? localStorage.getItem(prefix+'opacity') : null;
+			},
+			inverted: function() {
+				inverted = (localStorage) ? localStorage.getItem(prefix+'inverted') : null;	
+			},
+			color: function() {
+				currentColor = (localStorage) ? localStorage.getItem(prefix+'color') : "#fff";
+			},
+			texture: function() {
+				var src = localStorage ? localStorage.getItem(prefix+'texture') : null;
+				$currentTexture = $('#textures img').first();
+				$('#textures img').each(function() {
+					console.log(this.src, src, this.src.indexOf(src));
+					if (this.src.indexOf(src) != -1) {
+						$currentTexture = $(this);
+					}
+				});
+			}
+		}
+	};
     
     init.start();
 });

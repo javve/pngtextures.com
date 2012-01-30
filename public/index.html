@@ -34,37 +34,33 @@
 </head>
 <body>
 
-<div id="container">
-	<div id="main">
-		<div class="header">
-			<h1>PNGTextures</h1>
-		</div>
-		
-		
+<div class="aside">
+	<h1>PNGTextures</h1>
+	<div id="colorpicker"></div>
+	<input type="range" min="0" max="100" id="opacity" />
+	<button id="invert">Invert</button>
 
-        <div id="colorpicker"></div>
+    <a href="#" id="save-canvas-transparent" target="_blank" class="save">Save texture excluding color</a>
+    <a href="#" id="save-canvas-filled" target="_blank" class="save">Save texture including color</a>
 		
-		<button id="invert">Invert</button>
-		
-        <a href="#" id="save-canvas-transparent" class="save">Save texture excluding color</a>
-        <a href="#" id="save-canvas-filled" class="save">Save texture including color</a>
-		
-		<canvas id="canvas-transparent" class=""></canvas>
-		<canvas id="canvas-filled" class=""></canvas>
-		<canvas id="image-inverter" style="border:solid 1px #000;"></canvas>
-		
-	</div>
+	<canvas id="canvas-transparent" class=""></canvas>
+	<canvas id="canvas-filled" class=""></canvas>
+	<canvas id="image-inverter" style="display:none;"></canvas>
+	
 </div>
 		
-<ul id="textures">
-	<li><div class="texture"><img src="images/textures/1.png" /></div></li>
-	<li><div class="texture"><img src="images/textures/2.png" /></div></li>
+<ul id="textures" class="textures">
+	<li><img src="textures/lines-1.png" /></li>
+	<li><img src="textures/lines-2.png" /></li>
+	<li><img src="textures/squared-1.png" /></li>
+	<li><img src="textures/squared-2.png" /></li>
+	<li><img src="textures/squared-2-2.png" /></li>
+	<li><img src="textures/noise.png" /></li>
 </ul>
-
 
 <canvas id="canvas-preview"></div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>-->
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 
 	<script type="text/javascript" src="js/libs/jquery.ps-color-picker.min.js"></script>

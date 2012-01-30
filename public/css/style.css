@@ -1,6 +1,7 @@
 body {
 	margin:0;
 	padding:0;
+	background:url(/images/site/aside.png) repeat-y;
 }
 
 #container {
@@ -23,7 +24,7 @@ body {
 .header {
 	text-align:center;
 }
-h1 {
+.header h1 {
 	background:url(/images/site/logo.png) repeat;
 	width:276px;
 	height:34px;
@@ -41,30 +42,42 @@ h1 {
 }
 #colorpicker {
 	position:relative;
-	height:150px;
-	width:200px;
+	height:130px;
+	width:160px;
 }
 
-
-#image-container {
-	height:100px;
-	width:100px;
-	background-color:#fff;
-	display:block;
+h1 {
+	font-size:17px;
 }
+
 
 #canvas-preview {
 	background-color:#fff;
+	position:fixed;
 }
 
-#textures {
+.aside {
+	float:left;
+	width:160px;
+	padding:20px;
+}
+
+.textures {
 	width:100px;
 	padding:0;
+	float:left;
+	margin:0;
 }
-#textures li {
+.textures li {
 	display:block;
 	height:100px;
 	width:100px;
+	overflow:hidden;
 	margin:0;
 	list-style-type:none;
+	background-color:transparent;
+	background-repeat:repeat;
+}
+.textures li img {
+	margin-left:101px;
 }
