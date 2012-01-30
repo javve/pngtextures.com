@@ -16,6 +16,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="js/libs/tinyrange-jquery-plugin/jquery.range.css" />
 
 	<script src="js/libs/modernizr-2.0.6.min.js"></script>
 	<script type="text/javascript">
@@ -36,13 +37,17 @@
 
 <div class="aside">
 	<h1>PNGTextures</h1>
-	
-	<div id="colorpicker"></div>
-	<input type="range" min="0" max="100" id="opacity" />
-	<button id="invert">Invert</button>
+	<div class="container">
+		<div id="colorpicker"></div>
+		<input type="text" id="color" />
+		<div class="opacity-container">
+			<input type="text" min="0" max="100" id="opacity" />
+		</div>
+		<button id="invert">Invert texture</button>
+	</div>
 	
 	<h3>Right-click to save</h3>
-	<div class="save-area clearfix">
+	<div class="save-area container clearfix">
 		<div class="canvas-transparent-container">
 			<canvas id="canvas-transparent" class=""></canvas>
 		</div>
@@ -51,7 +56,7 @@
 		</div>
 	</div>
 	
-	<div class="share">
+	<div class="share container clearfix">
 		<div class="btn">
 			<a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="pngtextures">Tweet</a>
 		</div>
@@ -88,9 +93,10 @@
 <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>-->
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 
-	<script type="text/javascript" src="js/libs/jquery.ps-color-picker.min.js"></script>
-
+<script type="text/javascript" src="js/libs/jquery.ps-color-picker.min.js"></script>
+<script src="js/libs/tinyrange-jquery-plugin/jquery.range.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
+
 <script>
 	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
 	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;

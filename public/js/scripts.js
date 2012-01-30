@@ -29,7 +29,7 @@ $(window).load(function() {
             draw.all();
         },
 		loadSaved: function() {
-			storage.get.opacity(),
+			storage.get.opacity();
 			storage.get.inverted();
 			storage.get.color();
 			storage.get.texture();
@@ -48,24 +48,30 @@ $(window).load(function() {
             ctx.inverter = canvas.inverter.getContext('2d');
         },
         callbacks: function() {
-			console.log(currentColor, opacity, $currentTexture);
 			$("#colorpicker").CanvasColorPicker({
 				flat:true,
 				showButtons: false,
 				showPreview: false,
-				showColor: false,
+				showColor: true,
 				color: helpers.hexToRgb(currentColor),
 				onColorChange:function(rgb,hsv){
 					currentColor = helpers.rgbToHex(rgb.r, rgb.g, rgb.b);
+					$('#color').val(currentColor);
 					storage.save.color();
 					draw.all();
 				}
 			});
+			$('#color').val(currentColor);
 			$('#invert').click(invert.start);
-			$('#opacity').change(function() {
-				opacity = $(this).val() / 100;
-				storage.save.opacity();
-				draw.all();
+			
+			$('#opacity').attr('value', opacity*100);
+	        $('#opacity').range({
+				range: false,
+				change: function(values) {
+					opacity = values / 100;
+					storage.save.opacity();
+					draw.all();
+				}
 			});
 			$('#opacity').val(storage.get.opacity()*100);
         },
@@ -159,7 +165,7 @@ $(window).load(function() {
 		        data[i] = 255 - data[i]; // red
 		        data[i + 1] = 255 - data[i + 1]; // green
 		        data[i + 2] = 255 - data[i + 2]; // blue
-				data[i + 3] = 255 - data[i + 3]; // alpha
+				//data[i + 3] = 255 - data[i + 3]; // alpha
 		    }
 			imageData.data = data;
 			ctx.inverter.putImageData(imageData, 0, 0);				
