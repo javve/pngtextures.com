@@ -72,6 +72,8 @@ $(window).load(function() {
             $textures = $('#textures img');
             helpers.updateTextures();
             $('#textures li').click(function() {
+				$('#textures li').removeClass('active');
+				$(this).addClass('active');
                 $currentTexture = $(this).find('img');
 				storage.save.texture();
                 draw.all();
@@ -95,7 +97,7 @@ $(window).load(function() {
 			
 			$(document.body).css({
 				'background-color': currentColor
-			});
+			});	
 			
 			this.transparent(img, tWidth, tHeight);
 	        this.filled(img, tWidth, tHeight);   
@@ -166,8 +168,8 @@ $(window).load(function() {
 	
 	var helpers = {
 		adjustCanvasSize: function(canvas, tWidth, tHeight) {
-            var xTimes = Math.ceil(30 / tWidth);
-            var yTimes = Math.ceil(30 / tHeight);
+            var xTimes = Math.ceil(50 / tWidth);
+            var yTimes = Math.ceil(50 / tHeight);
             
             canvas.width = tWidth*xTimes;
             canvas.height = tHeight*yTimes;
@@ -198,8 +200,8 @@ $(window).load(function() {
 	};
     
     var updateLinks = function() {
-        $('#save-canvas-transparent').attr('href', canvas.transparent.toDataURL());
-        $('#save-canvas-filled').attr('href', canvas.filled.toDataURL());
+        //$('#save-canvas-transparent').attr('href', canvas.transparent.toDataURL());
+        //$('#save-canvas-filled').attr('href', canvas.filled.toDataURL());
     };
 	
 	var storage = {
@@ -219,10 +221,10 @@ $(window).load(function() {
 		},
 		get: {
 			opacity: function() {
-				opacity = (localStorage) ? localStorage.getItem(prefix+'opacity') : null;
+				opacity = (localStorage) ? localStorage.getItem(prefix+'opacity') : 0.5;
 			},
 			inverted: function() {
-				inverted = (localStorage) ? localStorage.getItem(prefix+'inverted') : null;	
+				inverted = (localStorage) ? localStorage.getItem(prefix+'inverted') : false;	
 			},
 			color: function() {
 				currentColor = (localStorage) ? localStorage.getItem(prefix+'color') : "#fff";
@@ -231,7 +233,6 @@ $(window).load(function() {
 				var src = localStorage ? localStorage.getItem(prefix+'texture') : null;
 				$currentTexture = $('#textures img').first();
 				$('#textures img').each(function() {
-					console.log(this.src, src, this.src.indexOf(src));
 					if (this.src.indexOf(src) != -1) {
 						$currentTexture = $(this);
 					}

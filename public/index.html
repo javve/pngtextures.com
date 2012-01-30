@@ -13,8 +13,6 @@
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-
-	<link rel="stylesheet" href="css/boilerplate.css">
 	<link rel="stylesheet" href="css/style.css">
 
 	<script src="js/libs/modernizr-2.0.6.min.js"></script>
@@ -36,20 +34,44 @@
 
 <div class="aside">
 	<h1>PNGTextures</h1>
+	
 	<div id="colorpicker"></div>
 	<input type="range" min="0" max="100" id="opacity" />
 	<button id="invert">Invert</button>
-
-    <a href="#" id="save-canvas-transparent" target="_blank" class="save">Save texture excluding color</a>
-    <a href="#" id="save-canvas-filled" target="_blank" class="save">Save texture including color</a>
-		
-	<canvas id="canvas-transparent" class=""></canvas>
-	<canvas id="canvas-filled" class=""></canvas>
+	
+	<h3>Right-click to save</h3>
+	<div class="save-area clearfix">
+		<div class="canvas-transparent-container">
+			<canvas id="canvas-transparent" class=""></canvas>
+		</div>
+		<div class="canvas-filled-container">
+			<canvas id="canvas-filled" class=""></canvas>
+		</div>
+	</div>
+	
+	<div class="share">
+		<div class="btn">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="pngtextures">Tweet</a>
+		</div>
+		<div class="btn">
+			<div class="fb-like" data-send="false" data-layout="button_count" data-width="160" data-show-faces="false" data-colorscheme="dark" data-font="arial"></div>
+		</div>
+		<div class="btn">
+			<g:plusone size="medium"></g:plusone>
+		</div>
+	</div>
+	
 	<canvas id="image-inverter" style="display:none;"></canvas>
 	
 </div>
 		
 <ul id="textures" class="textures">
+	<li><img src="textures/lines-1.png" /></li>
+	<li><img src="textures/lines-2.png" /></li>
+	<li><img src="textures/squared-1.png" /></li>
+	<li><img src="textures/squared-2.png" /></li>
+	<li><img src="textures/squared-2-2.png" /></li>
+	<li><img src="textures/noise.png" /></li>
 	<li><img src="textures/lines-1.png" /></li>
 	<li><img src="textures/lines-2.png" /></li>
 	<li><img src="textures/squared-1.png" /></li>
@@ -78,5 +100,25 @@
 	<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
 <![endif]-->
 
+<!--	
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=231755320213849";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+-->
 </body>
 </html>
