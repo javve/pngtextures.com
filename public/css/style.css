@@ -4,6 +4,7 @@ body {
 	background:url(/images/aside.png) repeat-y;
 	color:#eee;
 	font-family:"Helvetica Neue", Helvetica, Arial;
+	-webkit-font-smoothing: antialiased;
 }
 .hide { display: none; visibility: hidden; }
 .clearfix:before, .clearfix:after { content: ""; display: table; }
@@ -153,7 +154,7 @@ h3.choose-texture img {
 #canvas-preview {
 	background-color:#fff;
 	position:fixed;
-	margin-left:300px;
+	left:300px;
 }
 
 
