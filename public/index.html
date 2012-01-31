@@ -1,15 +1,12 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>PNGTextures</title>
+	<title>PNG Textures - The super smooth way to create hip textures. Crafted by @javve</title>
 	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="author" content="Jonny Strömberg @javve">
 	
 	<meta property="og:image" content="/images/fb-logo.png" />
 
@@ -17,10 +14,10 @@
 
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="js/libs/tinyrange/jquery.range.css" />
-
+	<link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
+	
 	<script src="js/libs/modernizr-2.0.6.min.js"></script>
 	<script type="text/javascript">
-
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-28751037-1']);
 	  _gaq.push(['_trackPageview']);
@@ -30,13 +27,15 @@
 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
-
 	</script>
 </head>
 <body>
 
 <div class="aside">
 	<h1>PNGTextures</h1>
+	<h3 class="choose-texture">1. Choose texture <img src="/images/arrow.png" /></h3>	
+	
+	<h3>2. Modify</h3>
 	<div class="container">
 		<div id="colorpicker"></div>
 		<input type="text" id="color" />
@@ -46,7 +45,7 @@
 		<button id="invert">Invert texture</button>
 	</div>
 	
-	<h3>Right-click to save</h3>
+	<h3>3. Right-click to save</h3>
 	<div class="save-area container clearfix">
 		<div class="canvas-transparent-container">
 			<canvas id="canvas-transparent" class=""></canvas>
@@ -56,6 +55,7 @@
 		</div>
 	</div>
 	
+	<h3>4. Share</h3>
 	<div class="share container clearfix">
 		<div class="btn">
 			<a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="pngtextures">Tweet</a>
@@ -66,6 +66,12 @@
 		<div class="btn">
 			<g:plusone size="medium"></g:plusone>
 		</div>
+	</div>
+	
+	<h3>5. Extras</h3>
+	<div class="container extra">
+		<p>PNG Textures is pure client side and made by <a href="http://jonnystromberg.com">Jonny Strömberg</a>.</p>
+		<a href="https://twitter.com/javve" class="twitter-follow-button" data-show-count="false">Follow @javve</a>
 	</div>
 	
 	<canvas id="image-inverter" style="display:none;"></canvas>
@@ -90,44 +96,13 @@
 
 <canvas id="canvas-preview"></div>
 
+<div id="fb-root"></div>
+
 <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>-->
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-
 <script type="text/javascript" src="js/libs/jquery.ps-color-picker.min.js"></script>
 <script src="js/libs/tinyrange/jquery.range.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
 
-<script>
-	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
-	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-	s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
-
-<!--[if lt IE 7 ]>
-	<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
-	<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
-<![endif]-->
-
-<!--	
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=231755320213849";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<script type="text/javascript">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
--->
 </body>
 </html>

@@ -3,7 +3,7 @@ body {
 	padding:0;
 	background:url(/images/aside.png) repeat-y;
 	color:#eee;
-	font-family: "helvetica neue", helvetica, arial;
+	font-family:"Helvetica Neue", Helvetica, Arial;
 }
 .hide { display: none; visibility: hidden; }
 .clearfix:before, .clearfix:after { content: ""; display: table; }
@@ -20,10 +20,20 @@ h1 {
 	margin:0 0 20px;
 }
 h3 {
-	margin:0 0 8px;
+	font-family: 'Gochi Hand', cursive;
+	margin:0 0 6px;
 	padding:10px 0 0;
-	font-size:14px;
-	text-align:center;
+	font-size:17px;
+	font-weight:normal;
+	color:#ccc;
+}
+h3.choose-texture {
+	position:relative;
+}
+h3.choose-texture img {
+	position:absolute;
+	right:-15px;
+	bottom:-10px;
 }
 
 /* ASIDE ********************/
@@ -34,16 +44,16 @@ h3 {
 	position:fixed;
 }
 .container {
-	padding:19px;
+	padding:15px 19px;
 	background-color:rgba(255,255,255,0.02);
 	border:solid 1px rgba(0,0,0,.3);
-	margin-bottom:20px;
+	margin-bottom:5px;
 }
 #colorpicker {
 	position:relative;
 	height:130px;
 	width:168px;
-	margin:-24px -24px 10px;
+	margin:-24px -24px 5px;
 }
 #color {
 	border-radius:4px;
@@ -52,7 +62,7 @@ h3 {
 	border:solid 1px #222;
 	background-color:rgba(0,0,0,0.2);
 	width:108px;
-	margin-bottom:20px;
+	margin-bottom:8px;
 	color:#999;
 }
 #color:focus { 
@@ -61,11 +71,10 @@ h3 {
 }
 
 .opacity-container {
-	margin-bottom:20px;}
+	margin-bottom:4px;}
 
 
-.save-area {
-}
+.save-area {}
 .save-area div {
 	width:48px;
 	height:48px;
@@ -79,11 +88,22 @@ h3 {
 }
 .canvas-filled-container {}
 
-.share {
-	display:none;
+.share.container {
+	padding-bottom:4px;
 }
 .share .btn {
-	margin-bottom:5px;
+	margin-bottom:8px;
+}
+
+.extra p {
+	font-size:12px;
+	line-height:1.2;
+	color:#888;
+	margin:0 0 10px;
+	padding:0;
+}
+.extra p a {
+	color:#eee;
 }
 
 /* TEXTURES ********************/
@@ -92,6 +112,7 @@ h3 {
 	padding:0;
 	float:left;
 	margin:0 0 0 200px;
+	border-left:solid 1px #111;
 }
 .textures li {
 	display:block;
@@ -102,6 +123,7 @@ h3 {
 	list-style-type:none;
 	background-color:transparent;
 	background-repeat:repeat;
+	background-position:5px 5px;
 	cursor:pointer;
 }
 .textures li.active {

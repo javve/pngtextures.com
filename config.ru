@@ -1,9 +1,14 @@
 require "rack"
+require 'rack-rewrite'
 
 use Rack::Static,
     :urls => ["/"],
     :root => "public"
-
+    
+use Rack::Rewrite do
+  rewrite '/', '/index.html'
+end
+    
 run lambda { |env|
     [
         200,
