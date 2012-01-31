@@ -25,6 +25,7 @@ $(window).load(function() {
             this.canvas();
             this.textures();
 			this.callbacks();
+			this.tooltip();
             resize();
             draw.all();
         },
@@ -91,7 +92,58 @@ $(window).load(function() {
 				storage.save.texture();
                 draw.all();
             });
-        }
+        },
+		tooltip: function() {
+			var author = $('#author'),
+				hideAuthorTimeout = null;
+				
+			var over = function(e) {
+				clearTimeout(hideAuthorTimeout);
+				var me = $(this),
+					name = me.data('name'),
+					authorName = me.data('author-name'),
+					url = me.data('author-url'),
+					twitter = me.data('author-twitter'),
+					offset = me.offset();
+					
+				author.html('');
+				if (name && (authorName || twitter)) {
+					author.append($('<span class="name">').html('<strong>'+name+'</strong>'+' by '));
+				} else if (name) {
+					author.append($('<span class="name">').html('<strong>'+name+'</strong>'));
+				}
+				
+				if (authorName && url) {
+					author.append($('<a class="author-name">').attr('href', url).text(authorName));
+				} else if (authorName){
+					author.append($('<span class="author-name">').text(authorName+" "));
+				}
+				
+				if (twitter) {
+					author.append($('<a href="http://twitter.com/'+twitter+'">').text('@'+twitter));
+				}
+				
+				author.css({
+					left: offset.left + 110,
+					top: offset.top + 30
+				});
+				author.show();
+			};
+			var out = function(e) {
+				hideAuthorTimeout = setTimeout(function() {
+					author.hide();
+				}, 500);
+			};
+			$('#textures li').hover(over, out);
+			
+			author.hover(function() {
+				clearTimeout(hideAuthorTimeout);
+			}, function() {
+				hideAuthorTimeout = setTimeout(function() {
+					author.hide();
+				}, 500);
+			});
+		}
     };
 	
     var resize = function() {

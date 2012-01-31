@@ -129,6 +129,7 @@ h3.choose-texture img {
 	border-left:solid 1px #111;
 }
 .textures li {
+	position:relative;
 	display:block;
 	height:100px;
 	width:100px;
@@ -148,8 +149,20 @@ h3.choose-texture img {
 .textures li img {
 	margin-left:101px;
 }
-
-
+#author {
+	position:absolute;
+	background-color:rgba(0,0,0,.9);
+	border-radius:5px;
+	padding:10px;
+	color:#eee;
+}
+#author a {
+	color:#ccc;
+}
+#author a, span {
+	display:inline-block;
+	margin-right:5px;
+}
 /* PREVIEW ********************/
 #canvas-preview {
 	background-color:#fff;
