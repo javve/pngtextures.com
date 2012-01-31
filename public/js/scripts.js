@@ -145,6 +145,9 @@ $(window).load(function() {
 	
 	var invert = {
 		start: function() {
+			var oldOpacity = opacity;
+			opacity = 1;
+			draw.all();
 			$textures.each(function() {
 				var $that = $(this);
 				invert.canvas($that);
@@ -152,6 +155,7 @@ $(window).load(function() {
 				ctx.inverter.rect(0,0,canvas.inverter.width,canvas.inverter.height);
 			});
             helpers.updateTextures();
+			opacity = oldOpacity;
 			draw.all();
 		},
 		canvas: function($that) {
