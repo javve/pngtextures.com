@@ -1,7 +1,7 @@
 require "rack"
 
 use Rack::Static,
-    :urls => ["/", "."],
+    :urls => ["/./", "/images", "/js", "/textures"],
     :root => "public"
 
 run lambda { |env|
