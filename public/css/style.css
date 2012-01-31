@@ -9,7 +9,9 @@ body {
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
-
+.force-show {
+	display:block !important;
+}
 
 h1 {
 	background:url(/images/logo.png) no-repeat;
@@ -53,19 +55,30 @@ h3.choose-texture img {
 	position:relative;
 	height:130px;
 	width:168px;
-	margin:-24px -24px 5px;
+	margin:-24px -24px 45px;
 }
-#color {
+#colorpicker .form {
+	height:auto !important;
+	width:auto !important;
+	position:static;
+}
+#colorpicker .form .color {
+	top:133px;
+	left:20px;
+}
+#colorpicker .form .color label {
+	display:none;
+}
+#colorpicker .form .color input {
 	border-radius:4px;
 	padding:6px;
 	font-size:13px;
 	border:solid 1px #222;
 	background-color:rgba(0,0,0,0.2);
 	width:108px;
-	margin-bottom:8px;
 	color:#999;
 }
-#color:focus { 
+#colorpicker .form .color input:focus { 
     outline: none; 
 	border:solid 1px #333;
 }
@@ -140,6 +153,7 @@ h3.choose-texture img {
 #canvas-preview {
 	background-color:#fff;
 	position:fixed;
+	margin-left:300px;
 }
 
 

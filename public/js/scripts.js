@@ -53,15 +53,20 @@ $(window).load(function() {
 				showButtons: false,
 				showPreview: false,
 				showColor: true,
+				showRGB: true,
 				color: helpers.hexToRgb(currentColor),
 				onColorChange:function(rgb,hsv){
 					currentColor = helpers.rgbToHex(rgb.r, rgb.g, rgb.b);
-					$('#color').val(currentColor);
+					//$('#color').val(currentColor);
 					storage.save.color();
 					draw.all();
 				}
 			});
-			$('#color').val(currentColor);
+			setTimeout(function() {
+				$('#colorpicker .form .color').addClass('force-show');
+				$('#colorpicker .form').addClass('force-show');
+			}, 1000);
+			
 			$('#invert').click(invert.start);
 			
 			$('#opacity').attr('value', opacity*100);
@@ -74,6 +79,7 @@ $(window).load(function() {
 				}
 			});
 			$('#opacity').val(storage.get.opacity()*100);
+			$(window).resize(resize);
         },
         textures: function() {
             $textures = $('#textures img');
@@ -92,8 +98,9 @@ $(window).load(function() {
         var newWidth = $(window).width(),
         newHeight = $(window).height();
         
-        canvas.preview.width = newWidth;
+        canvas.preview.width = newWidth - 300;
         canvas.preview.height = newHeight;
+		draw.all();
     };
 	
     var draw = {
@@ -109,8 +116,6 @@ $(window).load(function() {
 			this.transparent(img, tWidth, tHeight);
 	        this.filled(img, tWidth, tHeight);   
             this.preview(img, tWidth, tHeight);
-            
-            updateLinks();
         },
         preview: function(img, tWidth, tHeight) {
             ctx.preview.clearRect(0, 0, canvas.preview.width, canvas.preview.height);
@@ -206,11 +211,6 @@ $(window).load(function() {
 		    } : null;
 		}
 	};
-    
-    var updateLinks = function() {
-        //$('#save-canvas-transparent').attr('href', canvas.transparent.toDataURL());
-        //$('#save-canvas-filled').attr('href', canvas.filled.toDataURL());
-    };
 	
 	var storage = {
 		save: {
@@ -252,6 +252,7 @@ $(window).load(function() {
     init.start();
 });
 
+/*
 // Twitter
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 
@@ -270,3 +271,4 @@ $(window).load(function() {
   po.src = 'https://apis.google.com/js/plusone.js';
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
+*/
