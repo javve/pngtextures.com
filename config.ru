@@ -2,7 +2,7 @@ require "rack"
 require 'rack-rewrite'
 
 use Rack::Static,
-    :urls => ["/"],
+    :urls => ["/./"],
     :root => "public"
     
 use Rack::Rewrite do
