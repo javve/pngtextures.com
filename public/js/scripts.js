@@ -177,6 +177,7 @@ $(window).load(function() {
         transparent: function(img, tWidth, tHeight) {
 			helpers.adjustCanvasSize(canvas.transparent, tWidth, tHeight);
             this.pattern(img, ctx.transparent, canvas.transparent);
+            $('#img-transparent').attr('src', canvas.transparent.toDataURL());
         },
         filled: function(img, tWidth, tHeight) {
 			helpers.adjustCanvasSize(canvas.filled, tWidth, tHeight);
@@ -185,6 +186,7 @@ $(window).load(function() {
             ctx.filled.fillRect(0,0,canvas.filled.width,canvas.filled.height);
             
             this.pattern(img, ctx.filled, canvas.filled);
+            $('#img-filled').attr('src', canvas.filled.toDataURL());
         },
         pattern: function(img, ctxO, canvasO) {
             var pattern = ctxO.createPattern(img, "repeat");
