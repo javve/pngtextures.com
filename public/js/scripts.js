@@ -2,7 +2,7 @@ $(window).load(function() {
     var $container = $('body'),
         $textures = [],
         $currentTexture = null,
-        currentColor = undefined,
+        color = undefined,
         canvas = {
             preview: null,
             transparent: null,
@@ -21,19 +21,29 @@ $(window).load(function() {
         
     var init = {
         start: function() {
-			this.loadSaved();
+			this.getStartValues();
             this.canvas();
             this.textures();
 			this.callbacks();
 			this.tooltip();
+			if (inverted) {
+				invert.start();
+			}
             resize();
             draw.all();
         },
-		loadSaved: function() {
-			storage.get.opacity();
-			storage.get.inverted();
-			storage.get.color();
-			storage.get.texture();
+		getStartValues: function() {
+			var fromHash = hash.get();
+			opacity = fromHash.opacity ? fromHash.opacity : storage.get.opacity();
+			inverted = fromHash.inverted ? (fromHash.inverted == 'true') ? true : false : storage.get.inverted();
+			color = fromHash.color ? "#"+fromHash.color : storage.get.color();
+			
+			if (fromHash.texture) {
+				$currentTexture = $('.textures').find('[data-name="'+fromHash.texture+'"]').find('img');
+			} else {
+				$currentTexture = storage.get.texture();
+			}
+
 		},
         canvas: function() {
             canvas.preview = document.getElementById('canvas-preview');
@@ -55,10 +65,10 @@ $(window).load(function() {
 				showPreview: false,
 				showColor: true,
 				showRGB: true,
-				color: helpers.hexToRgb(currentColor),
+				color: helpers.hexToRgb(color),
 				onColorChange:function(rgb,hsv){
-					currentColor = helpers.rgbToHex(rgb.r, rgb.g, rgb.b);
-					//$('#color').val(currentColor);
+					color = helpers.rgbToHex(rgb.r, rgb.g, rgb.b);
+					//$('#color').val(color);
 					storage.save.color();
 					draw.all();
 				}
@@ -162,7 +172,7 @@ $(window).load(function() {
                 img = $currentTexture.get(0);
 			
 			$(document.body).css({
-				'background-color': currentColor
+				'background-color': color
 			});	
 			
 			this.transparent(img, tWidth, tHeight);
@@ -171,18 +181,19 @@ $(window).load(function() {
         },
         preview: function(img, tWidth, tHeight) {
             ctx.preview.clearRect(0, 0, canvas.preview.width, canvas.preview.height);
-            canvas.preview.style.backgroundColor = currentColor;
+            canvas.preview.style.backgroundColor = color;
             this.pattern(img, ctx.preview, canvas.preview);
         },
         transparent: function(img, tWidth, tHeight) {
 			helpers.adjustCanvasSize(canvas.transparent, tWidth, tHeight);
             this.pattern(img, ctx.transparent, canvas.transparent);
             $('#img-transparent').attr('src', canvas.transparent.toDataURL());
+            
         },
         filled: function(img, tWidth, tHeight) {
 			helpers.adjustCanvasSize(canvas.filled, tWidth, tHeight);
 			
-            ctx.filled.fillStyle = currentColor; 
+            ctx.filled.fillStyle = color; 
             ctx.filled.fillRect(0,0,canvas.filled.width,canvas.filled.height);
             
             this.pattern(img, ctx.filled, canvas.filled);
@@ -211,6 +222,9 @@ $(window).load(function() {
             helpers.updateTextures();
 			opacity = oldOpacity;
 			draw.all();
+			
+			inverted = inverted ? false : true;
+			storage.save.inverted();
 		},
 		canvas: function($that) {
             var tWidth = $that.width(),
@@ -267,19 +281,33 @@ $(window).load(function() {
 		        g: parseInt(result[2], 16),
 		        b: parseInt(result[3], 16)
 		    } : null;
+		},
+		getQueryStringObject: function() {
+			var e,
+			a = /\+/g,  // Regex for replacing addition symbol with a space
+			r = /([^&=]+)=?([^&]*)/g,
+			d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+			q = window.location.search.substring(1),
+			urlParams = {};
+
+			while (e = r.exec(q)) {
+				urlParams[d(e[1])] = d(e[2]);
+			}
+			return urlParams; 
 		}
 	};
 	
 	var storage = {
 		save: {
 			opacity: function() {
+			    
 				return (localStorage) ? localStorage.setItem(prefix+'opacity', opacity) : null;
 			},
 			inverted: function() {
 				return (localStorage) ? localStorage.setItem(prefix+'inverted', inverted) : null;
 			},
 			color: function() {
-				return (localStorage) ? localStorage.setItem(prefix+'color', currentColor) : null;
+				return (localStorage) ? localStorage.setItem(prefix+'color', color) : null;
 			},
 			texture: function() {
 				return (localStorage) ? localStorage.setItem(prefix+'texture', $currentTexture.attr('src')) : null;
@@ -287,13 +315,19 @@ $(window).load(function() {
 		},
 		get: {
 			opacity: function() {
-				opacity = (localStorage) ? localStorage.getItem(prefix+'opacity') || 0.5 : 0.5;
+				return (localStorage) ? localStorage.getItem(prefix+'opacity') || 0.5 : 0.5;
 			},
 			inverted: function() {
-				inverted = (localStorage) ? localStorage.getItem(prefix+'inverted') || false : false;	
+				var inverted = (localStorage) ? localStorage.getItem(prefix+'inverted') || false : false;	
+				if (inverted == 'true') {
+					inverted = true;
+				} else {
+					inverted = false;
+				}	
+				return inverted;		
 			},
 			color: function() {
-				currentColor = (localStorage) ? localStorage.getItem(prefix+'color') || "#ffffff" : "#ffffff";
+				return (localStorage) ? localStorage.getItem(prefix+'color') || "#ffffff" : "#ffffff";
 			},
 			texture: function() {
 				var src = localStorage ? localStorage.getItem(prefix+'texture') || null : null;
@@ -303,6 +337,7 @@ $(window).load(function() {
 						$currentTexture = $(this);
 					}
 				});
+				return $currentTexture;
 			}
 		}
 	};
@@ -330,3 +365,5 @@ $(window).load(function() {
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
 */
+
+(function(a,b){"use strict";var c=function(){var b=function(){var b=a.location.hash?a.location.hash.substr(1).split("&"):[],c={};for(var d=0;d<b.length;d++){var e=b[d].split("=");c[e[0]]=e[1]}return c};var c=function(b){var c=[];for(var d in b){c.push(d+"="+encodeURIComponent(b[d]))}a.location.hash=c.join("&")};return{get:function(a){var c=b();if(a){return c[a]}else{return c}},add:function(a){var d=b();for(var e in a){d[e]=a[e]}c(d)},remove:function(a){a=typeof a=="string"?[a]:a;var d=b();for(var e=0;e<a.length;e++){delete d[a[e]]}c(d)},clear:function(){c({})}}}();a.hash=c})(window)

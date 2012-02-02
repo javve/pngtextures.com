@@ -95,6 +95,17 @@ h3.choose-texture img {
 	overflow:hidden;
 	float:left;
 	border:solid 1px rgba(0,0,0,.3);
+	position:relative;
+}
+.save-area div img {
+    position:absolute;
+    width:48px;
+	height:48px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+    opacity: 0;
 }
 .canvas-transparent-container {
 	background:url(/images/transparent.gif) repeat;
