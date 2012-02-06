@@ -24,11 +24,14 @@ $(window).load(function() {
 			this.getStartValues();
             this.canvas();
             this.textures();
-			this.callbacks();
+			this.colorpicker();
+			this.inverter();
+			this.opacity();
 			this.tooltip();
 			if (inverted) {
 				invert.start();
 			}
+			$(window).resize(resize);
             resize();
             draw.all();
         },
@@ -58,8 +61,8 @@ $(window).load(function() {
             canvas.inverter = document.getElementById('image-inverter');
             ctx.inverter = canvas.inverter.getContext('2d');
         },
-        callbacks: function() {
-			$("#colorpicker").CanvasColorPicker({
+        colorpicker: function() {
+            $("#colorpicker").CanvasColorPicker({
 				flat:true,
 				showButtons: false,
 				showPreview: false,
@@ -68,7 +71,6 @@ $(window).load(function() {
 				color: helpers.hexToRgb(color),
 				onColorChange:function(rgb,hsv){
 					color = helpers.rgbToHex(rgb.r, rgb.g, rgb.b);
-					//$('#color').val(color);
 					storage.save.color();
 					draw.all();
 				}
@@ -77,9 +79,11 @@ $(window).load(function() {
 				$('#colorpicker .form .color').addClass('force-show');
 				$('#colorpicker .form').addClass('force-show');
 			}, 1000);
-			
-			$('#invert').click(invert.start);
-			
+        },
+        inverter: function() {
+            $('#invert').click(invert.start);
+        },
+        opacity: function() {
 			$('#opacity').attr('value', opacity*100);
 	        $('#opacity').range({
 				range: false,
@@ -90,7 +94,6 @@ $(window).load(function() {
 				}
 			});
 			$('#opacity').val(storage.get.opacity()*100);
-			$(window).resize(resize);
         },
         textures: function() {
             $textures = $('#textures img');
@@ -281,36 +284,27 @@ $(window).load(function() {
 		        g: parseInt(result[2], 16),
 		        b: parseInt(result[3], 16)
 		    } : null;
-		},
-		getQueryStringObject: function() {
-			var e,
-			a = /\+/g,  // Regex for replacing addition symbol with a space
-			r = /([^&=]+)=?([^&]*)/g,
-			d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
-			q = window.location.search.substring(1),
-			urlParams = {};
-
-			while (e = r.exec(q)) {
-				urlParams[d(e[1])] = d(e[2]);
-			}
-			return urlParams; 
 		}
 	};
 	
 	var storage = {
 		save: {
 			opacity: function() {
-			    
+			    hash.add({ opacity: opacity });
 				return (localStorage) ? localStorage.setItem(prefix+'opacity', opacity) : null;
 			},
 			inverted: function() {
+			    hash.add({ inverted: inverted });
 				return (localStorage) ? localStorage.setItem(prefix+'inverted', inverted) : null;
 			},
 			color: function() {
+			    hash.add({ color: color.substr(1) });
 				return (localStorage) ? localStorage.setItem(prefix+'color', color) : null;
 			},
 			texture: function() {
-				return (localStorage) ? localStorage.setItem(prefix+'texture', $currentTexture.attr('src')) : null;
+			    var texture = $currentTexture.parent().data('name');
+			    hash.add({ texture: texture });
+				return (localStorage) ? localStorage.setItem(prefix+'texture', texture) : null;
 			}
 		},
 		get: {
@@ -330,14 +324,8 @@ $(window).load(function() {
 				return (localStorage) ? localStorage.getItem(prefix+'color') || "#ffffff" : "#ffffff";
 			},
 			texture: function() {
-				var src = localStorage ? localStorage.getItem(prefix+'texture') || null : null;
-				$currentTexture = $('#textures img').first();
-				$('#textures img').each(function() {
-					if (this.src.indexOf(src) != -1) {
-						$currentTexture = $(this);
-					}
-				});
-				return $currentTexture;
+				var texture = localStorage ? localStorage.getItem(prefix+'texture') || "Linen" : "Linen";
+				return $('.textures').find('[data-name="'+texture+'"]').find('img');
 			}
 		}
 	};
@@ -345,7 +333,6 @@ $(window).load(function() {
     init.start();
 });
 
-/*
 // Twitter
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 
@@ -364,6 +351,3 @@ $(window).load(function() {
   po.src = 'https://apis.google.com/js/plusone.js';
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
-*/
-
-(function(a,b){"use strict";var c=function(){var b=function(){var b=a.location.hash?a.location.hash.substr(1).split("&"):[],c={};for(var d=0;d<b.length;d++){var e=b[d].split("=");c[e[0]]=e[1]}return c};var c=function(b){var c=[];for(var d in b){c.push(d+"="+encodeURIComponent(b[d]))}a.location.hash=c.join("&")};return{get:function(a){var c=b();if(a){return c[a]}else{return c}},add:function(a){var d=b();for(var e in a){d[e]=a[e]}c(d)},remove:function(a){a=typeof a=="string"?[a]:a;var d=b();for(var e=0;e<a.length;e++){delete d[a[e]]}c(d)},clear:function(){c({})}}}();a.hash=c})(window)
