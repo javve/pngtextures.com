@@ -1,7 +1,7 @@
 # PNGTextures.com
 
-[PNGTextures.com](http://pngtextures.com) is a site where you can 
-create your own textures. This Github project is here so that 
+[PNGTextures.com](http://pngtextures.com) - The super smooth way to create and 
+share hip textures. This Github project is here so that 
 you can add you own default textures.
 
 If you have any questions, make a issue report or ping
@@ -43,3 +43,8 @@ to be.
 commercially or personally.
 _And rememeber: Only post textures created by yourself or 
 ones that you have solid premission to post._
+
+## License and copyright
+All textures are completely free to use, modify or sell.
+
+The site however are you not allowed to just fork and publish unmodified somewhere else. But feel free to browse the source and find inspiration to make own awesome projects.
