@@ -79,8 +79,8 @@ h3.choose-texture img {
 	width:108px;
 	color:#999;
 }
-#colorpicker .form .color input:focus { 
-    outline: none; 
+#colorpicker .form .color input:focus {
+    outline: none;
 	border:solid 1px #333;
 }
 
